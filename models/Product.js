@@ -67,8 +67,8 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
-  // { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  // { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 ProductSchema.pre('remove', async function (next) {
@@ -78,12 +78,12 @@ ProductSchema.pre('remove', async function (next) {
 // to add virtuals add with timestamps
 // { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 
-// ProductSchema.virtual('reviews', {
-//   ref: 'Review',
-//   localField: '_id',
-//   foreignField: 'product',
-//   justOne: false,
-//   // match:{rating:5}
-// });
+ProductSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'product',
+  justOne: false,
+  // match:{rating:5}
+});
 
 module.exports = mongoose.model('Product', ProductSchema);
